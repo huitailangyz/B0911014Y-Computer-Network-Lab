@@ -1,0 +1,162 @@
+INFO: find the following interfaces: b1-eth0 b1-eth1 b1-eth2 b1-eth3.
+DEBUG: Port Name:  b1-eth0
+DEBUG: port b1-eth0 initial info: stp->designated_root = 0101.
+DEBUG: Port Name:  b1-eth1
+DEBUG: port b1-eth1 initial info: stp->designated_root = 0101.
+DEBUG: Port Name:  b1-eth2
+DEBUG: port b1-eth2 initial info: stp->designated_root = 0101.
+DEBUG: Port Name:  b1-eth3
+DEBUG: port b1-eth3 initial info: stp->designated_root = 0101.
+DEBUG: This stp has 4 ports.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: received SIGTERM, terminate this program.
+INFO: this switch is root.
+INFO: port id: 01, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 01, ->cost: 0.
+INFO: port id: 02, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 02, ->cost: 0.
+INFO: port id: 03, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 03, ->cost: 0.
+INFO: port id: 04, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 04, ->cost: 0.
+b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: port b1-eth0 send config packet.
+DEBUG: port b1-eth1 send config packet.
+DEBUG: port b1-eth2 send config packet.
+DEBUG: port b1-eth3 send config packet.
+DEBUG: received SIGTERM, terminate this program.
+INFO: this switch is root.
+INFO: port id: 01, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 01, ->cost: 0.
+INFO: port id: 02, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 02, ->cost: 0.
+INFO: port id: 03, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 03, ->cost: 0.
+INFO: port id: 04, role: DESIGNATED.
+INFO: 	designated ->root: 0101, ->switch: 0101, ->port: 04, ->cost: 0.

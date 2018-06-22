@@ -25,7 +25,6 @@ void tcp_state_listen(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 	child_tsk->parent = tsk;
 	child_tsk->rcv_nxt = cb->seq_end;
 	list_add_tail(&child_tsk->list, &tsk->listen_queue);
-	tcp_sock_inc_ref_cnt(child_tsk);
 	log(DEBUG, "New child tcp sock: ["IP_FMT":%hu<->"IP_FMT":%hu].",\
 				HOST_IP_FMT_STR(child_tsk->sk_sip), child_tsk->sk_sport,
 				HOST_IP_FMT_STR(child_tsk->sk_dip), child_tsk->sk_dport);
@@ -97,7 +96,6 @@ void tcp_state_syn_recv(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 	tsk->snd_una = cb->ack;
 	// [1] remove from parent's listen queue and add into parent's accept queue
 	tcp_sock_accept_enqueue(tsk);
-	free_tcp_sock(tsk);
 
 	// [2] wake up parent 
 	wake_up(tsk->parent->wait_accept);
@@ -209,6 +207,7 @@ void tcp_process(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 		tsk->rcv_nxt = cb->seq_end;
 		tsk->snd_una = cb->ack;
 		tcp_set_state(tsk, TCP_CLOSED);
+		tcp_unhash(tsk);
 		return ;
 	}
 

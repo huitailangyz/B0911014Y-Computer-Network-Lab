@@ -21,7 +21,9 @@ void tcp_scan_timer_list()
 			if (! tsk->parent)
 				tcp_bind_unhash(tsk);
 			tcp_set_state(tsk, TCP_CLOSED);
-			free_tcp_sock(tsk);
+			//free_tcp_sock(tsk);
+			tcp_unhash(tsk);
+			tcp_bind_unhash(tsk);
 		}
 	}
 }

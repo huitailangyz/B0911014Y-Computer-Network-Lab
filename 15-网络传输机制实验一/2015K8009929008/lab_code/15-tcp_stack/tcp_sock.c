@@ -66,6 +66,7 @@ struct tcp_sock *alloc_tcp_sock()
 	tsk->wait_accept = alloc_wait_struct();
 	tsk->wait_recv = alloc_wait_struct();
 	tsk->wait_send = alloc_wait_struct();
+	pthread_mutex_init(&tsk->buf_lock, NULL);
 
 	return tsk;
 }
@@ -78,6 +79,7 @@ struct tcp_sock *alloc_tcp_sock()
 // decreased to zero.
 void free_tcp_sock(struct tcp_sock *tsk)
 {
+	log(DEBUG, "decrease the ref_cnt from %d to %d", tsk->ref_cnt, tsk->ref_cnt - 1);
 	tsk->ref_cnt -= 1;
 	if (tsk->ref_cnt <= 0) {
 		log(DEBUG, "free tcp sock: ["IP_FMT":%hu<->"IP_FMT":%hu].", \
@@ -366,10 +368,27 @@ static void tcp_sock_clear_listen_queue(struct tcp_sock *tsk)
 		if (lsn_tsk->state == TCP_SYN_RECV) {
 			lsn_tsk->parent = NULL;
 			tcp_unhash(lsn_tsk);
-			free_tcp_sock(lsn_tsk);
+			//free_tcp_sock(lsn_tsk);
 		}
 	}
 }
+
+
+// clear the accept queue, which is carried out when *close* the tcp sock
+static void tcp_sock_clear_accept_queue(struct tcp_sock *tsk)
+{
+	struct tcp_sock *lsn_tsk;
+	while (!list_empty(&tsk->accept_queue)) {
+		lsn_tsk = list_entry(tsk->accept_queue.next, struct tcp_sock, list);
+		list_delete_entry(&lsn_tsk->list);
+		if (lsn_tsk->state == TCP_SYN_RECV) {
+			lsn_tsk->parent = NULL;
+			tcp_unhash(lsn_tsk);
+			//free_tcp_sock(lsn_tsk);
+		}
+	}
+}
+
 
 // close the tcp sock, by releasing the resources, sending FIN/RST packet
 // to the peer, switching TCP_STATE to closed
@@ -380,6 +399,7 @@ void tcp_sock_close(struct tcp_sock *tsk)
 			break;
 		case TCP_LISTEN:
 			tcp_sock_clear_listen_queue(tsk);
+			tcp_sock_clear_accept_queue(tsk);
 			tcp_unhash(tsk);
 			tcp_set_state(tsk, TCP_CLOSED);
 			break;

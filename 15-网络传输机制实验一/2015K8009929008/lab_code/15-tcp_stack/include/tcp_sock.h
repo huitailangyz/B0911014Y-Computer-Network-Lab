@@ -6,6 +6,7 @@
 #include "tcp.h"
 #include "tcp_timer.h"
 #include "ring_buffer.h"
+#include "log.h"
 
 #include "synch_wait.h"
 
@@ -91,12 +92,14 @@ struct tcp_sock {
 	u16 snd_wnd;
 	// the size of receiving window (advertised by tcp sock itself)
 	u16 rcv_wnd;
+	pthread_mutex_t buf_lock; 		// mutex lock for buffer
 };
 
 void tcp_set_state(struct tcp_sock *tsk, int state);
 
 static inline void tcp_sock_inc_ref_cnt(struct tcp_sock *tsk)
 {
+	log(DEBUG, "increase the ref_cnt from %d to %d", tsk->ref_cnt, tsk->ref_cnt + 1);
 	tsk->ref_cnt += 1;
 }
 

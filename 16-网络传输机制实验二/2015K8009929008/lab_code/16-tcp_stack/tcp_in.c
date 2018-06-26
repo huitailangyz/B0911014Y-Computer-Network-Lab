@@ -125,17 +125,22 @@ static inline int is_tcp_seq_valid(struct tcp_sock *tsk, struct tcp_cb *cb)
 	}
 }
 
-
 void tcp_recv_data(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 {
 	//fprintf(stdout, "TODO: implement %s.\n", __func__);
 	tcp_update_window_safe(tsk, cb);
-	log(DEBUG, "send packet len of %d", cb->pl_len);
+	log(DEBUG, "receive packet len of %d", cb->pl_len);
 	if (tsk->rcv_nxt == cb->seq){
+		int empty = 0;
 		pthread_mutex_lock(&tsk->buf_lock);
+		empty = ring_buffer_empty(tsk->rcv_buf);
 		write_ring_buffer(tsk->rcv_buf, cb->payload, cb->pl_len);
 		pthread_mutex_unlock(&tsk->buf_lock);
-		wake_up(tsk->wait_recv);
+		
+		//fprintf(stdout, "wake up the wait recv\n");
+		if(empty && tsk->not_first_read) {
+			wake_up(tsk->wait_recv);
+		}
 		tsk->rcv_wnd -= cb->pl_len;
 		tsk->rcv_nxt += cb->pl_len;
 		tsk->snd_una = cb->ack;
@@ -250,6 +255,7 @@ void tcp_process(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 		switch (tsk->state) {
 			case TCP_ESTABLISHED:
 				tcp_set_state(tsk, TCP_CLOSE_WAIT);
+				wake_up(tsk->wait_recv);
 				break;
 			case TCP_FIN_WAIT_2:
 				tcp_set_state(tsk, TCP_TIME_WAIT);

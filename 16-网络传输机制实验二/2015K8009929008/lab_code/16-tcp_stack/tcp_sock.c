@@ -426,12 +426,16 @@ int tcp_sock_read(struct tcp_sock *tsk, char *buf, int len)
 	pthread_mutex_lock(&tsk->buf_lock);
 	empty = ring_buffer_empty(tsk->rcv_buf);
 	pthread_mutex_unlock(&tsk->buf_lock);
-	while (empty) {
+	if (empty) {
+		tsk->not_first_read = 1;
 		sleep_on(tsk->wait_recv);
-		pthread_mutex_lock(&tsk->buf_lock);
-		empty = ring_buffer_empty(tsk->rcv_buf);
-		pthread_mutex_unlock(&tsk->buf_lock);
 	}
+	
+	pthread_mutex_lock(&tsk->buf_lock);
+	empty = ring_buffer_empty(tsk->rcv_buf);
+	pthread_mutex_unlock(&tsk->buf_lock);
+	if (empty)
+		return -1;
 
 	pthread_mutex_lock(&tsk->buf_lock);
 	int buf_len = read_ring_buffer(tsk->rcv_buf, buf, len);

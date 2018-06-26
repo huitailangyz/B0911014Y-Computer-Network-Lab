@@ -43,6 +43,7 @@ static inline int sleep_on(struct synch_wait *wait)
 	if (wait->dead)
 		goto unlock;
 	wait->sleep = 1;
+	
 	if (!wait->notified)
 		pthread_cond_wait(&wait->cond, &wait->lock);
 	wait->notified = 0;

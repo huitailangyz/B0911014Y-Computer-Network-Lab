@@ -93,6 +93,7 @@ struct tcp_sock {
 	// the size of receiving window (advertised by tcp sock itself)
 	u16 rcv_wnd;
 	pthread_mutex_t buf_lock; 		// mutex lock for buffer
+	u8 not_first_read;
 };
 
 void tcp_set_state(struct tcp_sock *tsk, int state);

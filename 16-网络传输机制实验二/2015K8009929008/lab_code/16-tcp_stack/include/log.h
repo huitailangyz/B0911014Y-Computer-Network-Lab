@@ -7,11 +7,11 @@
 
 // #define LOG_DEBUG
 
-enum log_level { DEBUG = 0, INFO, WARNING, ERROR };
+enum log_level { DEBUG = 0, INFO, WARNING, ERROR, NOTHING };
 
 static enum log_level this_log_level = DEBUG;
 
-static const char *log_level_str[] = { "DEBUG", "INFO", "WARNING", "ERROR" };
+static const char *log_level_str[] = { "DEBUG", "INFO", "WARNING", "ERROR", "NOTHING" };
 
 #ifdef LOG_DEBUG
 	#define log_it(fmt, level_str, ...) \

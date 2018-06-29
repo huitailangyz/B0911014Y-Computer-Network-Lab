@@ -13,7 +13,7 @@ struct ring_buffer {
 };
 
 static inline struct ring_buffer *alloc_ring_buffer(int size)
-{
+{	
 	// there is always one byte which should not be read or written
 	int tot_size = sizeof(struct ring_buffer) + size + 1;
 	struct ring_buffer *rbuf = malloc(tot_size);
@@ -75,7 +75,8 @@ static inline int read_ring_buffer(struct ring_buffer *rbuf, char *buf, int size
 
 // rbuf should have enough space for buf
 static inline void write_ring_buffer(struct ring_buffer *rbuf, char *buf, int size)
-{
+{	
+	printf("remain %d, to write : %d\n", ring_buffer_free(rbuf), size);
 	assert(size > 0 && ring_buffer_free(rbuf) >= size);
 	int len = size;
 	if (len > 0) {

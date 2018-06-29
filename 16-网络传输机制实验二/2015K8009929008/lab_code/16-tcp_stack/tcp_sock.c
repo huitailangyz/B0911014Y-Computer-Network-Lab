@@ -60,7 +60,7 @@ struct tcp_sock *alloc_tcp_sock()
 	init_list_head(&tsk->listen_queue);
 	init_list_head(&tsk->accept_queue);
 
-	tsk->rcv_buf = alloc_ring_buffer(tsk->rcv_wnd);
+	tsk->rcv_buf = alloc_ring_buffer(tsk->rcv_wnd + 1);
 
 	tsk->wait_connect = alloc_wait_struct();
 	tsk->wait_accept = alloc_wait_struct();
@@ -408,12 +408,12 @@ void tcp_sock_close(struct tcp_sock *tsk)
 		case TCP_SYN_SENT:
 			break;
 		case TCP_ESTABLISHED:
-			tcp_send_control_packet(tsk, TCP_FIN|TCP_ACK);
 			tcp_set_state(tsk, TCP_FIN_WAIT_1);
+			tcp_send_control_packet(tsk, TCP_FIN|TCP_ACK);
 			break;
 		case TCP_CLOSE_WAIT:
-			tcp_send_control_packet(tsk, TCP_FIN|TCP_ACK);
 			tcp_set_state(tsk, TCP_LAST_ACK);
+			tcp_send_control_packet(tsk, TCP_FIN|TCP_ACK);
 			break;
 	}
 }
@@ -446,12 +446,13 @@ int tcp_sock_write(struct tcp_sock *tsk, char *buf, int len)
 {
 	//fprintf(stdout, "TODO: implement %s.\n", __func__);
 	//fprintf(stdout, "tsk->snd_wnd : %d  len : %d\n", tsk->snd_wnd, len);
-	while (tsk->snd_wnd < len)
-		sleep_on(tsk->wait_send);
 	int have_send = 0;
 	int this_send = 0;
 	while (have_send < len){
+		while (tsk->snd_wnd == 0)
+			sleep_on(tsk->wait_send);
 		this_send = min(len - have_send, ETH_FRAME_LEN - ETHER_HDR_SIZE - IP_BASE_HDR_SIZE - TCP_BASE_HDR_SIZE);
+		this_send = min(this_send, tsk->snd_wnd);
 		char *packet = (char *)malloc(ETHER_HDR_SIZE + IP_BASE_HDR_SIZE + TCP_BASE_HDR_SIZE + this_send);
 		memcpy(packet + ETHER_HDR_SIZE + IP_BASE_HDR_SIZE + TCP_BASE_HDR_SIZE, buf + have_send, this_send);
 		tcp_send_packet(tsk, packet, ETHER_HDR_SIZE + IP_BASE_HDR_SIZE + TCP_BASE_HDR_SIZE + this_send);

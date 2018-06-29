@@ -423,23 +423,20 @@ int tcp_sock_read(struct tcp_sock *tsk, char *buf, int len)
 {	
 	//fprintf(stdout, "TODO: implement %s.\n", __func__);
 	int empty = 0;
-	pthread_mutex_lock(&tsk->buf_lock);
-	empty = ring_buffer_empty(tsk->rcv_buf);
-	pthread_mutex_unlock(&tsk->buf_lock);
-	if (empty) {
-		tsk->not_first_read = 1;
-		sleep_on(tsk->wait_recv);
+	int buf_len = 0;
+	while (!buf_len) {
+		pthread_mutex_lock(&tsk->buf_lock);
+		empty = ring_buffer_empty(tsk->rcv_buf);
+		pthread_mutex_unlock(&tsk->buf_lock);
+		if (empty) {
+			sleep_on(tsk->wait_recv);
+		}
+		if (tsk->state == TCP_CLOSE_WAIT)
+			return -1;
+		pthread_mutex_lock(&tsk->buf_lock);
+		buf_len = read_ring_buffer(tsk->rcv_buf, buf, len);
+		pthread_mutex_unlock(&tsk->buf_lock);
 	}
-	
-	pthread_mutex_lock(&tsk->buf_lock);
-	empty = ring_buffer_empty(tsk->rcv_buf);
-	pthread_mutex_unlock(&tsk->buf_lock);
-	if (empty)
-		return -1;
-
-	pthread_mutex_lock(&tsk->buf_lock);
-	int buf_len = read_ring_buffer(tsk->rcv_buf, buf, len);
-	pthread_mutex_unlock(&tsk->buf_lock);
 	tsk->rcv_wnd += buf_len;
 	//log(DEBUG, "Leave %s", __func__);
 	return buf_len;

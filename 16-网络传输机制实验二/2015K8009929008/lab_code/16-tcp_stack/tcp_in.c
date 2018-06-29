@@ -137,8 +137,7 @@ void tcp_recv_data(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 		write_ring_buffer(tsk->rcv_buf, cb->payload, cb->pl_len);
 		pthread_mutex_unlock(&tsk->buf_lock);
 		
-		//fprintf(stdout, "wake up the wait recv\n");
-		if(empty && tsk->not_first_read) {
+		if(empty){
 			wake_up(tsk->wait_recv);
 		}
 		tsk->rcv_wnd -= cb->pl_len;
